@@ -5,52 +5,84 @@ public class MakeChange {
 	public static void main(String[] args) {
 		Scanner keyboard = new Scanner(System.in);
 		
-		double price = 0.00;
-		double cashReceived = 0.00;
-		double cashOwed = 0.00;
-		double change = 0.00;
+		// Constant Variables
+		int tenDollar = 1000;
+		int fiveDollar = 500;
+		int dollar = 100;
+		int quarter = 25;
+		int dime = 10;
+		int nickel = 5;
+		int penny = 1;
 		
-		Double tenDollar = 10.0;
-		Double fiveDollar = 5.0;
-		Double dollar = 1.0;
-		Double quarter = 0.25;
-		Double dime = 0.10;
-		Double nickel = 0.05;
-		Double penny = 0.01;
-		
+		// Ask user to provide both the price of their item and how much cash on hand.
 		System.out.println("Hello! Looks like you're ready to checkout. What is the price of your item? ");
-		price = keyboard.nextDouble();
+		double price = keyboard.nextDouble();
 		
 		System.out.println("Our card reader is down. How much cash do you have? ");
-		cashReceived = keyboard.nextDouble();
-		cashOwed = cashReceived- price;
+		double cashReceived = keyboard.nextDouble();
+		
+		int cashOwed = (int)((cashReceived * 100) - (price * 100));
+		double total = ((double)cashOwed / 100);
+// Error handling		
 			if (cashReceived < price) {
 		System.out.println("You'll need more money or you'll have to put the item back. ");	
 			}
 		else if (cashReceived > price) {
-		System.out.println("Let me get you your change. I owe you " + "$" + cashOwed + ".");
+		System.out.println("Let me get you your change. I owe you " + "$" + total + ".");
 		}
-			double hamilton = (cashOwed)% tenDollar;
+		else {
+			System.out.println("What luck! You have exactly the amount needed!");
+		}
+			int hamilton = (cashOwed)% tenDollar;
 			if (tenDollar == (cashOwed - hamilton)) {
-				System.out.println("You get one $10 bill. ");
+				System.out.println("You get 1 $10 bill. ");
 			}
-			double lincoln = (cashOwed)% fiveDollar;
-			if (fiveDollar >= fiveDollar && hamilton != tenDollar) {
-				System.out.println("You get one $5 bill. ");
+			int lincoln = hamilton % fiveDollar;
+			if (hamilton >= fiveDollar && hamilton != tenDollar) {
+				System.out.println("You get 1 $5 bill. ");
 			}
-			double washington = (cashOwed % dollar)
+			int washington = (cashOwed % dollar);
+			if (lincoln >= dollar) {
+				int v = (lincoln - washington) / 100;
+				System.out.println("You get " + v + " $1 bill/s. ");
+				}
+			int coinWashington = washington % quarter;
+			
+			if (washington >= quarter) {
+
+				int q = washington - coinWashington;
+				q = q / quarter;
+				System.out.println("You get " + q + " quarter/s ");
 			}
-			coinWashington = dollar % quarter;
-				if ()
-//			double washington = (cashOwed)% dollar;
-//			
-//			if (lincoln >= dollar) {
-//				int coin = (lincoln - washington) /100;
-//				System.out.println("Here is " + coin + " $1 bill/s ");
-//			}
-//			}
-//	if (dollar == (cashOwed - washington)) {
-//		System.out.println("You get one $1 bill. ");
-	}	
-		
+
+			int roosevelt = coinWashington % dime;
+
+			if (coinWashington >= dime) {
+
+				int d = coinWashington - roosevelt;
+				d = d / dime;
+				System.out.println("You get " + d + " dime/s ");
+			}
+			
+			int jefferson = roosevelt % nickel;
+
+			if (roosevelt >= nickel) {
+
+				int n = roosevelt - jefferson;
+				n = n / nickel;
+				System.out.println("You get " + n + " nickel/s ");
+			}
+			
+			
+			int coinLincoln = jefferson % penny;
+
+			if (jefferson >= penny) {
+
+				int p = jefferson - coinLincoln;
+				p = p / penny;
+				System.out.println("You get " + p + " penny/pennies ");
+				
+			}
+			keyboard.close();
+	}
 }
